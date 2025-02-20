@@ -5,6 +5,7 @@ import DataList from './components/DataList';
 
 const InfiniteScroll = () => {
   const [items, setItems] = useState([]); // 데이터 목록
+  const [moreItems, setMoreItems] = useState(true); // 데이터 끝 확인
   const [loading, setLoading] = useState(false); // 로딩 스피너
   const [index, setIndex] = useState(null); // 선택 게시글
   const [isModal, setIsModal] = useState(false); //모달 관리
@@ -24,6 +25,10 @@ const InfiniteScroll = () => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageRef.current}`);
     const newData = await res.json();
 
+    if (newData.length === 0) {
+      setMoreItems(false);
+    }
+
     setItems((prev) => [...prev, ...newData]); // 기존 데이터에 추가
     pageRef.current += 1; // 페이지 증가
     setLoading(false);
@@ -32,6 +37,8 @@ const InfiniteScroll = () => {
   // Intersection Observer 사용해 스크롤 감지, 특정요소가 뷰포트에 얼마나 보이는지를 감지함
   // 화면에 loader가 보이면 fetch data 실행해서 새로운 데이터 보여줌
   useEffect(() => {
+    if (!moreItems) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => { // 감시중인 요소들의 배열
         if (entry.isIntersecting && !loading) {
@@ -41,9 +48,9 @@ const InfiniteScroll = () => {
       { threshold: 1.0 } // 해당요소 100% 보여야 동작
     );
 
-    if (loader.current) observer.observe(loader.current);
+    observer.observe(loader.current);
     return () => {
-      if (loader.current) observer.unobserve(loader.current);
+      observer.disconnect();
     }; // 클린업 함수
   }, [loading]);
 
