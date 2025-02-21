@@ -6,17 +6,17 @@ const DataList = ({ items, onClickModal }) => {
   return (
 
     <GridList>
-            {items.map((item, index) => (
-                <ListItem key={index} onClick={() => onClickModal(index)}>
-                    <img src={bk_img} alt="상품 이미지" />
-                    <div>
-                        {item.title}
-                    </div>
-                </ListItem>
-            ))}
+      {items.map((item, index) => (
+        <ListItem key={index} onClick={() => onClickModal(index)}>
+          <img src={bk_img} alt="상품 이미지" />
+          <div>
+            {item.title}
+          </div>
+        </ListItem>
+      ))}
     </GridList>
 
-    );
+  );
 };
 
 export default DataList;

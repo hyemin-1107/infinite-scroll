@@ -45,7 +45,7 @@ const ModalWrap = styled.div`
     height: 100%;
 
     background-color: rgba(0,0,0,0.1);
-`
+`;
 
 const ModalContainer = styled.div`
     position: relative;
@@ -74,7 +74,7 @@ const ModalContainer = styled.div`
         to {
           transform: translate(-50%, -50%);
         }
-      }
+    }
 
     article{
         h1{
@@ -88,7 +88,7 @@ const ModalContainer = styled.div`
                 margin: 0 50px;
             }
     }
-`
+`;
 
 const CloseButton = styled.div`
     position: absolute;
@@ -114,4 +114,4 @@ const CloseButton = styled.div`
 
         cursor: pointer;
     }
-`
+`;

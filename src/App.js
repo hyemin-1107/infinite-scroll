@@ -6,6 +6,6 @@ function App() {
       <InfiniteScroll />
     </div>
   );
-}
+};
 
 export default App;

@@ -21,13 +21,13 @@ const InfiniteScroll = () => {
   const onClickCloseModal = () => setIsModal(false);
 
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true) // 스피너
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageRef.current}`);
     const newData = await res.json();
 
     if (newData.length === 0) {
       setMoreItems(false);
-    }
+    } // 데이터 다 보여줬으면 스피너 종료
 
     setItems((prev) => [...prev, ...newData]); // 기존 데이터에 추가
     pageRef.current += 1; // 페이지 증가
@@ -37,7 +37,6 @@ const InfiniteScroll = () => {
   // Intersection Observer 사용해 스크롤 감지, 특정요소가 뷰포트에 얼마나 보이는지를 감지함
   // 화면에 loader가 보이면 fetch data 실행해서 새로운 데이터 보여줌
   useEffect(() => {
-    if (!moreItems) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => { // 감시중인 요소들의 배열
@@ -49,6 +48,8 @@ const InfiniteScroll = () => {
     );
 
     observer.observe(loader.current);
+    // useRef는 .current를 통해 접근해야 DOM 요소를 얻을 수 있음
+
     return () => {
       observer.disconnect();
     }; // 클린업 함수
@@ -58,24 +59,25 @@ const InfiniteScroll = () => {
   return (
 
     <MainWrap>
+
       <h1>Infinite Scroll</h1>
 
       <DataList items={items} onClickModal={onClickModal} />
 
-      {loading && (
+      {loading && moreItems &&(
         <LoadingSpinner>
           <div></div>
         </LoadingSpinner>
       )}
 
-    {isModal &&  (
-      <DetailModal
-        data={items}
-        index={index}
-        isModal={isModal}
-        onClickCloseModal={onClickCloseModal}
-      />
-    )}
+      {isModal && (
+        <DetailModal
+          data={items}
+          index={index}
+          isModal={isModal}
+          onClickCloseModal={onClickCloseModal}
+        />
+      )}
 
       <div ref={loader} />
 
@@ -94,7 +96,7 @@ const MainWrap = styled.div`
     margin: 130px 0;
     text-align: center;
   }
-`
+`;
 
 const LoadingSpinner = styled.div`
   position: fixed;
