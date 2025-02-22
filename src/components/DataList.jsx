@@ -6,8 +6,8 @@ const DataList = ({ items, onClickModal }) => {
   return (
 
     <GridList>
-      {items.map((item, index) => (
-        <ListItem key={index} onClick={() => onClickModal(index)}>
+      {items.map((item, selectedPost) => (
+        <ListItem key={selectedPost} onClick={() => onClickModal(selectedPost)}>
           <img src={bk_img} alt="상품 이미지" />
           <div>
             {item.title}

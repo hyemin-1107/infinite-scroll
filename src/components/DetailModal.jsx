@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import styled from "styled-components"
-import { useOnClickOutside } from "../utils/useOnClickOutside";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 
 const DetailModal = (props) => {
 
-    const { index, data, isModal, onClickCloseModal } = props;
+    const { selectedPost, data, isModal, onClickCloseModal } = props;
 
     const modalRef = useRef();
     useOnClickOutside(modalRef, onClickCloseModal);
@@ -17,8 +17,8 @@ const DetailModal = (props) => {
             <ModalContainer key={data} ref={modalRef} $isModal={isModal}>
 
                 <article>
-                    <h1>{data[index].title}</h1>
-                    <p>{data[index].body}</p>
+                    <h1>{data[selectedPost].title}</h1>
+                    <p>{data[selectedPost].body}</p>
                 </article>
 
                 <CloseButton>
