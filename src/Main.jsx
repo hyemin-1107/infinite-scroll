@@ -1,24 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import DetailModal from './components/DetailModal';
+// import DetailModal from './components/DetailModal';
 import DataList from './components/DataList';
+import { useNavigate } from 'react-router-dom';
 
 const InfiniteScroll = () => {
   const [items, setItems] = useState([]); // 데이터 목록
-  const [selectedPost, setSelectedPost] = useState(null); // 선택 게시글
+  // const [selectedPost, setSelectedPost] = useState(null); // 선택 게시글
   const [isMoreItems, setIsMoreItems] = useState(true); // 데이터 끝 확인
   const [isLoading, setIsLoading] = useState(false); // 로딩 스피너
-  const [isModal, setIsModal] = useState(false); //모달 관리
+  // const [isModal, setIsModal] = useState(false); //모달 관리
 
   const pageRef = useRef(1); // 현재 페이지 추적(리렌더링 방지)
   const loaderRef = useRef(null); // 스크롤 로더 감지 참조
 
-  const onClickModal = (selectedPost) => {
-    setSelectedPost(selectedPost);
-    setIsModal(true);
-  };
+  // const onClickModal = (selectedPost) => {
+  //   setSelectedPost(selectedPost);
+  //   setIsModal(true);
+  // };
+  // const onClickCloseModal = () => setIsModal(false);
 
-  const onClickCloseModal = () => setIsModal(false);
+  const navigate = useNavigate();
+  const onClickPost = (id) => {
+    navigate(`/posts/${id}`);
+  };
 
   const fetchData = async () => {
     setIsLoading(true) // 스피너
@@ -62,7 +67,7 @@ const InfiniteScroll = () => {
 
       <h1>Infinite Scroll</h1>
 
-      <DataList items={items} onClickModal={onClickModal} />
+      <DataList items={items} onClickPost={onClickPost} />
 
       {isLoading && isMoreItems &&(
         <LoadingSpinner>
@@ -70,14 +75,14 @@ const InfiniteScroll = () => {
         </LoadingSpinner>
       )}
 
-      {isModal && (
+      {/* {isModal && (
         <DetailModal
           data={items}
           selectedPost={selectedPost}
           isModal={isModal}
           onClickCloseModal={onClickCloseModal}
         />
-      )}
+      )} */}
 
       <div ref={loaderRef} />
 

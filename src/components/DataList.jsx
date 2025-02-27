@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import bk_img from "../images/bg_img.avif"
 
-const DataList = ({ items, onClickModal }) => {
+const DataList = ({ items, onClickPost }) => {
 
   return (
 
     <GridList>
-      {items.map((item, selectedPost) => (
-        <ListItem key={selectedPost} onClick={() => onClickModal(selectedPost)}>
+      {items.map((item) => (
+        <ListItem key={item.id} onClick={() => onClickPost(item.id)}>
           <img src={bk_img} alt="상품 이미지" />
           <div>
             {item.title}
