@@ -32,7 +32,8 @@ const DetailPage = () => {
 export default DetailPage;
 
 const Detail = styled.article`
+  margin: 150px 50px;
+
   font-size: 30px;
   text-align: center;
-  margin: 150px 50px;
 `;
