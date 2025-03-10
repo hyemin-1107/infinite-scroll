@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { setPost } from "../redux/modules/data";
+import { setPost } from "../redux/modules/actions";
+import { RootState } from "../redux/config/store";
 
 const DetailPage = () => {
-  const { id } = useParams();
-  // const [post, setPost] = useState(null);
+  const { id } = useParams<{ id: string }>();
+  
   const dispatch = useDispatch();
-  const post = useSelector((state) => state.data.post);
+  const post = useSelector((state: RootState) => state.data.post);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -19,7 +20,6 @@ const DetailPage = () => {
 
     fetchPost();
   }, [dispatch, id]);
-
 
   return (
     <Detail>

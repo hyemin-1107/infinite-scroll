@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import styled from "styled-components"
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
-
 const DetailModal = (props) => {
 
     const { selectedPost, data, isModal, onClickCloseModal } = props;

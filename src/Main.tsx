@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 // import DetailModal from './components/DetailModal';
 import DataList from './components/DataList';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLoading, setIsMoreItems, setItems } from './redux/modules/data';
+import { setIsLoading, setIsMoreItems, setItems } from './redux/modules/actions';
+import { RootState } from './redux/config/store';
+
 
 const InfiniteScroll = () => {
   // const [items, setItems] = useState([]); // 데이터 목록
@@ -13,13 +15,13 @@ const InfiniteScroll = () => {
   // const [isModal, setIsModal] = useState(false); //모달 관리
   // const [selectedPost, setSelectedPost] = useState(null); // 선택 게시글
 
-  const pageRef = useRef(1); // 현재 페이지 추적(리렌더링 방지)
+  const pageRef = useRef<number>(1); // 현재 페이지 추적(리렌더링 방지)
   const loaderRef = useRef(null); // 스크롤 로더 감지 참조
 
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.data.items);
-  const isMoreItems = useSelector((state) => state.data.isMoreItems);
-  const isLoading = useSelector((state) => state.data.isLoading);
+  const items = useSelector((state: RootState) => state.data.items);
+  const isMoreItems = useSelector((state: RootState) => state.data.isMoreItems);
+  const isLoading = useSelector((state: RootState) => state.data.isLoading);
 
   // const onClickModal = (selectedPost) => {
   //   setSelectedPost(selectedPost);
@@ -28,7 +30,7 @@ const InfiniteScroll = () => {
   // const onClickCloseModal = () => setIsModal(false);
 
   const navigate = useNavigate();
-  const onClickPost = (id) => {
+  const onClickPost = (id: number) => {
     navigate(`/posts/${id}`);
   };
 
@@ -63,8 +65,9 @@ const InfiniteScroll = () => {
       },
       { threshold: 1.0 }
     );
-
-    observer.observe(loaderRef.current);
+    if(loaderRef.current){
+      observer.observe(loaderRef.current);
+    }
 
     return () => {
       observer.disconnect();

@@ -1,14 +1,23 @@
 import styled from "styled-components";
-import bk_img from "../images/bg_img.avif"
 
-const DataList = ({ items, onClickPost }) => {
+interface Item {
+  id: number;
+  title: string;
+}
+
+interface DataListProps {
+  items: Item[];
+  onClickPost: (id: number) => void;
+}
+
+const DataList = ({ items, onClickPost }: DataListProps) => {
 
   return (
 
     <GridList>
       {items.map((item) => (
         <ListItem key={item.id} onClick={() => onClickPost(item.id)}>
-          <img src={bk_img} alt="상품 이미지" />
+          <img src="/images/bg_img.avif"  alt="상품 이미지" />
           <div>
             {item.title}
           </div>
