@@ -79,13 +79,12 @@ const ModalContainer = styled.div`
         h1{
             margin: 110px 50px;
         }
-            p{
-                text-align: center;
-                font-size: 32px;
-
-                word-break: keep-all;
-                margin: 0 50px;
-            }
+        p{
+            text-align: center;
+            font-size: 32px;
+            word-break: keep-all;
+            margin: 0 50px;
+        }
     }
 `;
 

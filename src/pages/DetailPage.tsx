@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { setPost } from "../redux/modules/actions";
 import { RootState } from "../redux/config/store";
+import { setPost } from "../redux/reducers/postReducer";
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
   
   const dispatch = useDispatch();
-  const post = useSelector((state: RootState) => state.data.post);
+  const post = useSelector((state: RootState) => state.post);
 
   useEffect(() => {
     const fetchPost = async () => {

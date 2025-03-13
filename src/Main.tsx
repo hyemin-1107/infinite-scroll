@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import DataList from './components/DataList';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLoading, setIsMoreItems, setItems } from './redux/modules/actions';
 import { RootState } from './redux/config/store';
+import { setIsLoading } from './redux/reducers/isLoadingReducer';
+import { setIsMoreItems } from './redux/reducers/isMoreItemsReducer';
+import { setItems } from './redux/reducers/itemsReducer';
 
 
 const InfiniteScroll = () => {
@@ -19,9 +21,9 @@ const InfiniteScroll = () => {
   const loaderRef = useRef(null); // 스크롤 로더 감지 참조
 
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.data.items);
-  const isMoreItems = useSelector((state: RootState) => state.data.isMoreItems);
-  const isLoading = useSelector((state: RootState) => state.data.isLoading);
+  const items = useSelector((state: RootState) => state.items);
+  const isMoreItems = useSelector((state: RootState) => state.isMoreItems);
+  const isLoading = useSelector((state: RootState) => state.isLoading);
 
   // const onClickModal = (selectedPost) => {
   //   setSelectedPost(selectedPost);
