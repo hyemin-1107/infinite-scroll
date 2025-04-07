@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Main from './Main';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 // IntersectionObserver mock으로 대체
 beforeAll(() => {
@@ -16,13 +16,13 @@ beforeAll(() => {
 });
 
 // mock reducer 함수
-const mockReducer = () => ({
-  items: [
+const mockReducer = combineReducers({
+  items: () => [
     { id: 1, title: 'Test Post 1' },
     { id: 2, title: 'Test Post 2' },
   ],
-  isLoading: false,
-  isMoreItems: true,
+  isLoading: () => false,
+  isMoreItems: () => true,
 });
 
 // Redux store 구성
@@ -30,8 +30,8 @@ const mockStore = configureStore({
   reducer: mockReducer,
 });
 
-describe('Main Component', () => {
-  it('포스트와 타이틀 렌더링', () => {
+test('포스트와 타이틀 렌더링', () => {
+
     render(
       <Provider store={mockStore}>
         <MemoryRouter>
@@ -44,5 +44,5 @@ describe('Main Component', () => {
     expect(screen.getByText('Infinite Scroll')).toBeInTheDocument();
     expect(screen.getByText('Test Post 1')).toBeInTheDocument();
     expect(screen.getByText('Test Post 2')).toBeInTheDocument();
-  });
+
 });

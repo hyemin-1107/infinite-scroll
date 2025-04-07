@@ -21,6 +21,7 @@ test('DetailPage 렌더링 및 데이터 표시', async () => {
     },
   });
 
+  
   render(
     <Provider store={store}>
       <MemoryRouter initialEntries={['/posts/1']}>
