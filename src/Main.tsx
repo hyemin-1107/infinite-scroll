@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-// import DetailModal from './components/DetailModal';
 import DataList from './components/DataList';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,27 +8,14 @@ import { setIsLoading } from './redux/reducers/isLoadingReducer';
 import { setIsMoreItems } from './redux/reducers/isMoreItemsReducer';
 import { setItems } from './redux/reducers/itemsReducer';
 
+const Main = () => {
 
-const InfiniteScroll = () => {
-  // const [items, setItems] = useState([]); // 데이터 목록
-  // const [isMoreItems, setIsMoreItems] = useState(true); // 데이터 끝 확인
-  // const [isLoading, setIsLoading] = useState(false); // 로딩 스피너
-  // const [isModal, setIsModal] = useState(false); //모달 관리
-  // const [selectedPost, setSelectedPost] = useState(null); // 선택 게시글
-
-  const pageRef = useRef<number>(1); // 현재 페이지 추적(리렌더링 방지)
-  const loaderRef = useRef(null); // 스크롤 로더 감지 참조
-
+  const pageRef = useRef<number>(1);
+  const loaderRef = useRef(null);
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.items);
   const isMoreItems = useSelector((state: RootState) => state.isMoreItems);
   const isLoading = useSelector((state: RootState) => state.isLoading);
-
-  // const onClickModal = (selectedPost) => {
-  //   setSelectedPost(selectedPost);
-  //   setIsModal(true);
-  // };
-  // const onClickCloseModal = () => setIsModal(false);
 
   const navigate = useNavigate();
   const onClickPost = (id: number) => {
@@ -37,7 +23,6 @@ const InfiniteScroll = () => {
   };
 
   const fetchData = async () => {
-    // 더 이상 데이터가 없다면 데이터를 더 이상 로드하지 않도록 설정
     if (!isMoreItems || isLoading) return;
   
     dispatch(setIsLoading(true));
@@ -50,19 +35,16 @@ const InfiniteScroll = () => {
     }
   
     dispatch(setItems(newData));
-    pageRef.current += 1; // 페이지 증가
+    pageRef.current += 1; 
     dispatch(setIsLoading(false));
   };
   
-  // Intersection Observer 사용해 스크롤 감지, 특정요소가 뷰포트에 얼마나 보이는지를 감지함
-  // 화면에 loader가 보이면 fetch data 실행해서 새로운 데이터 보여줌
   useEffect(() => {
-    if (isLoading) return;  // 로딩 중이면 observer를 설정하지 않음
-
+    if (isLoading) return;  
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !isLoading && isMoreItems) {
-          fetchData();  // 새로운 데이터를 로드
+          fetchData();  
         }
       },
       { threshold: 1.0 }
@@ -74,7 +56,7 @@ const InfiniteScroll = () => {
     return () => {
       observer.disconnect();
     };
-  }, [isLoading, isMoreItems]);
+  }, [isLoading, isMoreItems, fetchData]);
 
   return (
 
@@ -90,15 +72,6 @@ const InfiniteScroll = () => {
         </LoadingSpinner>
       )}
 
-      {/* {isModal && (
-        <DetailModal
-          data={items}
-          selectedPost={selectedPost}
-          isModal={isModal}
-          onClickCloseModal={onClickCloseModal}
-        />
-      )} */}
-
       <div ref={loaderRef} />
 
     </MainWrap>
@@ -106,7 +79,7 @@ const InfiniteScroll = () => {
   );
 };
 
-export default InfiniteScroll;
+export default Main;
 
 const MainWrap = styled.div`
   margin: 0 auto;

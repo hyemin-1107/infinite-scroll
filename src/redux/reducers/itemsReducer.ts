@@ -1,6 +1,11 @@
 const SET_ITEMS = 'data/SET_ITEMS';
 
-const initialState: [] = [];
+export interface Item {
+    id: number;
+    title: string;
+}  
+
+const initialState: Item[] = [];
 
 const itemsReducer = (state = initialState, action: { type: string; payload: [] }) => {
     switch (action.type) {

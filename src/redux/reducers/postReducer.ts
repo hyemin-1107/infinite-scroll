@@ -1,20 +1,26 @@
+import { AnyAction, Reducer } from "redux";
+
 const SET_POST = 'data/SET_POST';
 
-interface Post {
+export interface Post {
     id: number;
     [key: string]: string | number;
 };
 
 const initialState: Post | null = null;
 
-const postReducer = (state = initialState, action: { type: string; payload: Post | null }) => {
+const postReducer: Reducer<Post | null, AnyAction> = (
+    state = initialState,
+    action
+  ) => {
     switch (action.type) {
-        case SET_POST:
-            return action.payload;
-        default:
-            return state;
+      case SET_POST:
+        return action.payload;
+      default:
+        return state;
     }
-};
+  };
+  
 
 export default postReducer;
 
