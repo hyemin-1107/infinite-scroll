@@ -56,7 +56,7 @@ const Main = () => {
     return () => {
       observer.disconnect();
     };
-  }, [isLoading, isMoreItems, fetchData]);
+  }, [isLoading, isMoreItems]);
 
   return (
 
