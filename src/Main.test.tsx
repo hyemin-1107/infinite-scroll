@@ -44,5 +44,4 @@ test('포스트와 타이틀 렌더링', () => {
     expect(screen.getByText('Infinite Scroll')).toBeInTheDocument();
     expect(screen.getByText('Test Post 1')).toBeInTheDocument();
     expect(screen.getByText('Test Post 2')).toBeInTheDocument();
-
 });
