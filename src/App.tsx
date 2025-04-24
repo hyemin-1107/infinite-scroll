@@ -6,7 +6,7 @@ import DetailPage from "./pages/DetailPage";
 function App() {
 
   return (
-    <Router>
+    <Router basename="/infinite-scroll">
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/posts/:id" element={<DetailPage />} />
