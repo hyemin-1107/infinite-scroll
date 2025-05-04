@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import bgImage from "../images/bg_img.avif"
 
 interface Item {
   id: number;
@@ -17,7 +18,7 @@ const DataList = ({ items, onClickPost }: DataListProps) => {
     <GridList>
       {items.map((item) => (
         <ListItem key={item.id} onClick={() => onClickPost(item.id)}>
-          <img src="/images/bg_img.avif"  alt="상품 이미지" />
+          <img src={bgImage}  alt="상품 이미지" />
           <div>
             {item.title}
           </div>
